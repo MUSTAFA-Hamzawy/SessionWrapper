@@ -1,0 +1,2 @@
+# SessionWrapper
+PHP Session Handler
