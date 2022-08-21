@@ -1,15 +1,12 @@
 <?php
 
-define("SESSIONS_DIR", dirname(__DIR__) . DIRECTORY_SEPARATOR . 'session' . DIRECTORY_SEPARATOR . 'sessions');
-
 // configurations
 define('SESSION_NAME', "MUSTAFA");                      // Set session name : string
 define('SESSION_MAX_LIFE_TIME', 0);
 define('SESSION_PATH', '/');
-//define('SESSIONS_DIR', 'your-folder-path-here');      // The path of sessions dir
-define('SESSIONS_DOMAIN', '');            // Your domain
+define('SESSIONS_DIR', 'your-folder-path-here');      // The path of sessions dir
+define('SESSIONS_DOMAIN', '');            // Your sub domain  ex: (.test.com)
 define('SESSIONS_CIPHER_METHOD', 'aes-128-ctr');
-define('SESSIONS_CIPHER_KEY', 'HAMZAWY-KEY#2022');    // Set your own key
 
 
 
@@ -96,7 +93,7 @@ class SessionWrapper extends SessionHandler
   public function start(){
     if (empty(session_id()))
     {
-        if (session_start())
+        if (@session_start())
         {
           $this->setSessionStartTime();
           $this->checkSessionExpirationTime();
@@ -118,6 +115,9 @@ class SessionWrapper extends SessionHandler
 
   public function sessionDestroy(){
     session_unset();
+    setcookie($this->sessionName, '', time() - 3600, $this->sessionPath, $this->sessionDomain, $this->sessionSSL,
+        $this->sessionHTTPOnly);
     session_destroy();
-}
+
+  }
 }
