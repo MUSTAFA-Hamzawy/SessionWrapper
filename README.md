@@ -14,24 +14,24 @@
 
         $sessionObj = new SessionWrapper();
         
-        // start the session
+        // To start the session
         $sessionObj->start();
 
-        //set value
+        // To set a value
         $sessionObj->VariableName = Value;
         
         // examples
         $sessionObj->username = "mustafa";
         $sessionObj->address  = "Giza";
         
-        //get value
+        //To get a value
         $sessionObj->VariableName;
         
         // examples
         echo $sessionObj->username;
         echo $sessionObj->address;
 
-        // stop session
+        // To stop the session
         $sessionObj->sessionDestroy();
 
         
